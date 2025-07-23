@@ -1,0 +1,13 @@
+# File: .htaccess
+# ---------------
+# Cấu hình URL thân thiện cho Apache.
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /your-project-folder/ # <-- THAY ĐỔI cho phù hợp với thư mục của bạn
+
+    # Chuyển hướng các yêu cầu không phải là tệp hoặc thư mục có thật đến index.php
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+</IfModule>
