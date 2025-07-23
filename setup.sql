@@ -73,3 +73,41 @@ WHERE `product_id` = 3 AND `language_code` = 'en';
 UPDATE `product_translations`
 SET `specifications` = '{"loai": "Nữ hoàng (Queen)", "kich_co": "10x10 mm", "dong_goi": "10 kg/thùng", "tai_trong": "23 tấn/cont 40RF"}'
 WHERE `product_id` = 3 AND `language_code` = 'vi';
+
+-- Cho admin
+-- Bảng để định nghĩa các vai trò (quyền hạn)
+CREATE TABLE `roles` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `role_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `permissions` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Lưu quyền hạn dưới dạng JSON, ví dụ: {"products": ["create", "edit", "delete"], "seo": ["edit"]}',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `role_name` (`role_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Chèn các vai trò mặc định
+INSERT INTO `roles` (`id`, `role_name`, `permissions`) VALUES
+(1, 'admin', '{"all": true}'),
+(2, 'editor', '{"products": ["create", "edit", "view"], "media": ["upload"]}'),
+(3, 'marketing', '{"products": ["view"], "seo": ["edit"]}');
+
+-- Bảng để quản lý người dùng
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Luôn lưu mật khẩu đã được băm (hashed)',
+  `email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `role_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`),
+  UNIQUE KEY `email` (`email`),
+  KEY `role_id` (`role_id`),
+  CONSTRAINT `users_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Chèn một người dùng quản trị (admin) mẫu
+-- Mật khẩu là 'password123'. Bạn PHẢI thay đổi nó trong thực tế.
+-- Mật khẩu đã được băm bằng password_hash() của PHP với thuật toán BCRYPT.
+INSERT INTO `users` (`username`, `password`, `email`, `role_id`) VALUES
+('admin', '$2y$10$E/gL3hN8zeC4L2xVfH.g.eWce.DkHwJ3D.LgC9M6BCRCb/lc/l.lG', 'admin@example.com', 1);
+

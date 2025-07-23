@@ -47,8 +47,3 @@ global $lang;
         </div>
     </div>
 </div>
-
-
-
-
-

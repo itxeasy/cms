@@ -37,3 +37,14 @@ git push -u origin main
 |-- .htaccess           # Tệp cấu hình URL thân thiện
 |-- index.php           # Tệp điều hướng chính
 |-- config.php          # Tệp cấu hình chung
+
+|-- /admin/
+|   |-- /includes/
+|   |   |-- header.php      # Header của trang admin
+|   |   |-- footer.php      # Footer của trang admin
+|   |   |-- session.php     # Xử lý session và kiểm tra quyền
+|   |-- index.php           # Trang dashboard chính
+|   |-- login.php           # Trang đăng nhập
+|   |-- logout.php          # Xử lý đăng xuất
+|   |-- style.css           # (Tùy chọn) CSS riêng cho trang admin
+|-- ... (các thư mục và tệp khác)

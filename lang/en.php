@@ -19,6 +19,17 @@ return [
     'products_subtitle' => 'From fresh fields and pristine waters to your market.',
     'view_details' => 'View Details',
 
+    'contact_form_title' => 'Get In Touch',
+    'contact_form_subtitle' => 'Ready to expand your business globally? Let our experienced team help you.',
+    'full_name' => 'Full Name',
+    'company' => 'Company',
+    'email' => 'Email',
+    'phone' => 'Phone',
+    'message' => 'Message',
+    'send_message' => 'Send Message',
+    'contact_success' => 'Thank you! Your message has been sent successfully.',
+    'contact_error' => 'Error! There was a problem sending your message. Please try again later.',
+
     // URL Routes (Quan trọng cho SEO và Pretty URLs)
     'routes' => [
         'products' => 'products',

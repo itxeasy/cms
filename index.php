@@ -74,6 +74,16 @@ switch ($page) {
     //     require_once 'templates/about.php';
     //     break;
 
+    // === PHẦN MỚI THÊM VÀO ===
+    case $lang['routes']['about']:
+        require_once 'templates/about.php';
+        break;
+
+    case $lang['routes']['contact']:
+        require_once 'templates/contact.php';
+        break;
+    // === KẾT THÚC PHẦN MỚI ===
+
     default:
         // Nếu không tìm thấy trang, hiển thị trang 404
         http_response_code(404);
